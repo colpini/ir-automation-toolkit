@@ -1,0 +1,24 @@
+{
+  "id": "1716300001",
+  "timestamp": "2024-05-21T03:14:52.123Z",
+  "rule": {
+    "id": "5712",
+    "description": "SSHD brute force trying to get access to the system. Authentication failed.",
+    "level": 10,
+    "groups": ["authentication_failures", "brute_force", "sshd", "pam"]
+  },
+  "agent": {
+    "id": "001",
+    "name": "web-server-prod-01",
+    "ip": "192.168.1.10"
+  },
+  "manager": {
+    "name": "wazuh-manager"
+  },
+  "data": {
+    "srcip": "185.220.101.47",
+    "srcuser": "root",
+    "dstip": "192.168.1.10"
+  },
+  "full_log": "Mar 21 03:14:52 web-server-prod-01 sshd[12345]: Failed password for root from 185.220.101.47 port 54321 ssh2"
+}

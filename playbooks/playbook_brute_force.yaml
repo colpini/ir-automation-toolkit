@@ -1,0 +1,35 @@
+name: "Brute Force Response"
+description: "Resposta automatizada para tentativas de brute force"
+trigger: brute_force
+severity_threshold: medium   # só executa se severidade >= medium
+
+steps:
+  - id: block_attacker_ip
+    action: block_ip
+    description: "Bloquear IP de origem do atacante"
+    params:
+      target: "{{ iocs.src_ip }}"
+      reason: "Brute force detectado — {{ alert.rule_description }}"
+      duration_hours: 24
+
+  - id: log_incident
+    action: log_case
+    description: "Registrar incidente no log de casos"
+    params:
+      title: "Brute Force de {{ iocs.src_ip }} contra {{ alert.agent_name }}"
+      severity: "{{ incident.severity }}"
+      iocs: "{{ iocs }}"
+      notes: "Usuário alvo: {{ iocs.username }} | Rule ID: {{ alert.rule_id }}"
+
+  - id: notify_analyst
+    action: notify
+    description: "Notificar analista do SOC"
+    params:
+      channel: "soc-alerts"
+      priority: high
+      message: |
+        🚨 BRUTE FORCE DETECTADO
+        Host    : {{ alert.agent_name }}
+        IP      : {{ iocs.src_ip }}
+        Usuário : {{ iocs.username }}
+        Ação    : IP bloqueado por 24h

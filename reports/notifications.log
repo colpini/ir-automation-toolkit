@@ -1,0 +1,16 @@
+
+[2026-05-04T00:10:03.256734] CHANNEL=#soc-alerts PRIORITY=HIGH
+🚨 BRUTE FORCE DETECTADO
+Host    : web-server-prod-01
+IP      : 185.220.101.47
+Usuário : root
+Ação    : IP bloqueado por 24h
+────────────────────────────────────────────────────────────
+
+[2026-05-07T22:42:13.299202] CHANNEL=#soc-alerts PRIORITY=HIGH
+🚨 BRUTE FORCE DETECTADO
+Host    : web-server-prod-01
+IP      : 185.220.101.47
+Usuário : root
+Ação    : IP bloqueado por 24h
+────────────────────────────────────────────────────────────

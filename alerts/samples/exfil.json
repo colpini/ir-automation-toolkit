@@ -1,0 +1,24 @@
+{
+  "event_id": "EVT-2024-1203",
+  "timestamp": "2024-05-21T23:47:05.000Z",
+  "source": "dlp_system",
+  "description": "Unusual large outbound data transfer detected — possible data exfiltration to external host",
+  "severity": 14,
+  "groups": ["data_exfiltration", "data_loss"],
+  "hostname": "file-server-01",
+  "agent_ip": "10.0.0.30",
+  "username": "joao.souza",
+  "process": "rclone.exe",
+  "file_path": "/mnt/shares/finance/Q1_2024_report.zip",
+  "file_hash": "",
+  "src_ip": "10.0.0.30",
+  "dst_ip": "104.21.55.89",
+  "raw_message": "DLP Alert: 2.3GB transferred from 10.0.0.30 to 104.21.55.89 via HTTPS on port 443",
+  "extra": {
+    "bytes_transferred": 2471128064,
+    "destination_country": "RU",
+    "protocol": "HTTPS",
+    "port": 443,
+    "duration_seconds": 142
+  }
+}

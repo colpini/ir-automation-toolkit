@@ -1,0 +1,37 @@
+name: "Data Exfiltration Response"
+description: "Resposta automatizada para suspeita de exfiltração de dados"
+trigger: data_exfiltration
+severity_threshold: medium
+
+steps:
+  - id: block_destination_ip
+    action: block_ip
+    description: "Bloquear IP de destino da exfiltração"
+    params:
+      target: "{{ iocs.dst_ip }}"
+      reason: "Suspeita de exfiltração de dados para este IP"
+      duration_hours: 720
+
+  - id: log_incident
+    action: log_case
+    description: "Registrar incidente com detalhes da transferência"
+    params:
+      title: "Exfiltração de dados por {{ iocs.username }} → {{ iocs.dst_ip }}"
+      severity: "{{ incident.severity }}"
+      iocs: "{{ iocs }}"
+      notes: "Arquivo: {{ iocs.file_path }} | Processo: {{ iocs.process }} | Src: {{ iocs.src_ip }}"
+
+  - id: notify_analyst
+    action: notify
+    description: "Notificar SOC e compliance"
+    params:
+      channel: "soc-critical"
+      priority: critical
+      message: |
+        🔴 SUSPEITA DE EXFILTRAÇÃO DE DADOS
+        Host    : {{ alert.agent_name }}
+        Usuário : {{ iocs.username }}
+        Destino : {{ iocs.dst_ip }}
+        Arquivo : {{ iocs.file_path }}
+        Processo: {{ iocs.process }}
+        AÇÃO    : Revisar logs de transferência e notificar compliance!
